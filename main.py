@@ -66,11 +66,18 @@ async def on_message(message):
     if message.content.startswith("洗濯"):
         if client.user != message.author.name:
 
+            sendMessage = ""
+
             tenki = getweather()
 
-            weather = tenki["forecasts"][1]["telop"]
+            sendMessage += "今日: "
+            today = tenki["forecasts"][0]["telop"]
+            sendMessage += dic[today]
 
-            sendMessage = dic[weather]
+            sendMessage += "\n明日: "
+            tomorrow = tenki["forecasts"][1]["telop"]
+            sendMessage += dic[tomorrow]
+
             channel = message.channel
             await channel.send(sendMessage)
 
